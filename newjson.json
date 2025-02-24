@@ -1,0 +1,137 @@
+{
+    "Realized Changes": [
+        {
+            "Item Revision": "AA",
+            "Item Reference": "DAN-20117090",
+            "Self FMD Material": "Unassigned",
+            "Quantity": "1",
+            "Level": "0",
+            "Item Type": "Thermocouple",
+            "Item Owner": "Flow Control Valves",
+            "Environmental Compliance": "Impacted",
+            "Item Description": "TEST LEVEL 0 PART",
+            "BOM": [
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "VA-20117089",
+                    "Item Parent": "DAN-20117090",
+                    "Self FMD Material": "Unassigned",
+                    "Quantity": "1",
+                    "Level": "1",
+                    "Item Type": "Fastener",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Impacted",
+                    "Item Description": "TEST",
+                    "MEP Details": [
+                        {
+                            "Part Description": "RES,226K,1 PCT,62.5MW,0402",
+                            "Item Reference": "VA-20117089",
+                            "Supplier Reference": "07-734-9041",
+                            "Part Reference": "NRC04F2263TR10F",
+                            "Item Type": "Fastener"
+                        }
+                    ]
+                },
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "DAN-20117088",
+                    "Item Parent": "DAN-20117090",
+                    "Self FMD Material": "Unassigned",
+                    "Quantity": "1",
+                    "Level": "1",
+                    "Item Type": "Resistor",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Impacted",
+                    "Item Description": "RTES",
+                    "MEP Details": [
+                        {
+                            "Part Description": "RES,226K,1 PCT,62.5MW,0402",
+                            "Item Reference": "DAN-20117088",
+                            "Supplier Reference": "07-734-9041",
+                            "Part Reference": "NRC04F2263TR10F",
+                            "Item Type": "Resistor"
+                        }
+                    ]
+                },
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "20117087",
+                    "Item Parent": "DAN-20117088",
+                    "Self FMD Material": "Unassigned",
+                    "Quantity": "1",
+                    "Level": "2",
+                    "Item Type": "Capacitor",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Impacted",
+                    "Item Description": "ASDF",
+                    "MEP Details": []
+                },
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "DAN-20117086",
+                    "Item Parent": "20117087",
+                    "Self FMD Material": "Unassigned",
+                    "Quantity": "1",
+                    "Level": "3",
+                    "Item Type": "Meter Body",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Unassigned",
+                    "Item Description": "ASDF",
+                    "MEP Details": [
+                        {
+                            "Part Description": "RES,226K,1 PCT,62.5MW,0402",
+                            "Item Reference": "DAN-20117086",
+                            "Supplier Reference": "07-734-9041",
+                            "Part Reference": "NRC04F2263TR10F",
+                            "Item Type": "Meter Body"
+                        }
+                    ]
+                },
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "VA-20117085",
+                    "Item Parent": "DAN-20117086",
+                    "Self FMD Material": "Tantalum Alloys FMD",
+                    "Quantity": "1",
+                    "Level": "4",
+                    "Item Type": "Lining Protector",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Impacted",
+                    "Item Description": "TEST",
+                    "MEP Details": []
+                },
+                {
+                    "Item Revision": "AA",
+                    "Item Reference": "DAN-20117083",
+                    "Item Parent": "VA-20117085",
+                    "Self FMD Material": "AWS Steel FMD",
+                    "Quantity": "1",
+                    "Level": "5",
+                    "Item Type": "Fastener",
+                    "Item Owner": "Flow Control Valves",
+                    "Environmental Compliance": "Self-FMD",
+                    "Item Description": "TEST PART",
+                    "MEP Details": [
+                        {
+                            "Part Description": "RES,226K,1 PCT,62.5MW,0402",
+                            "Item Reference": "DAN-20117083",
+                            "Supplier Reference": "07-734-9041",
+                            "Part Reference": "NRC04F2263TR10F",
+                            "Item Type": "Fastener"
+                        }
+                    ]
+                }
+            ],
+            "MEP": [
+                {
+                    "Part Description": "RES,226K,1 PCT,62.5MW,0402",
+                    "Item Reference": "DAN-20117090",
+                    "Supplier Reference": "07-734-9041",
+                    "Part Reference": "NRC04F2263TR10F",
+                    "Item Type": "Thermocouple"
+                }
+            ]
+        }
+    ]
+    
+}

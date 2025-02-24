@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Fetch and Convert API
+  description: API to fetch JSON data from an external source, convert it into an Excel file, and upload it to a remote server.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local server
+paths:
+  /fetch-and-convert:
+    get:
+      summary: Fetch JSON data, convert to Excel, and upload to a remote server
+      description: Fetch JSON data from `https://jsonplaceholder.typicode.com/comments`, convert it into an Excel file, and upload it to a remote server via HTTP API or FTP.
+      responses:
+        '200':
+          description: Successfully fetched data, converted to Excel, and uploaded to the remote server.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "File uploaded successfully!"
+        '400':
+          description: Invalid response or no data found from the API.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No data found from the API."
+        '500':
+          description: Internal server error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Failed to fetch data, generate, or upload the Excel file."
+        '502':
+          description: Bad Gateway error. Could be a failure in uploading to the remote server.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Failed to upload the file to the remote server."
