@@ -100,7 +100,9 @@ const sendJson = async (req, res) => {
 };
 
 const flatingBOM = async (req) => {
-    const inputData = req.body;
+    const inputData = req.body['CA Details'];
+    const ca_name = inputData['CA Name']
+    const plm_env = inputData['PLM Environment']
     let output = [];
 
     function processOuterMEP() {
@@ -182,7 +184,7 @@ const flatingBOM = async (req) => {
     processBOMMEP();
 
     try {
-        const excelResult = await convertJsonToExcel(output); // Wait for Excel file to be created
+        const excelResult = await convertJsonToExcel(output,ca_name,plm_env); // Wait for Excel file to be created
         const ftpFilePath = await sendDataToSFTP(excelResult); // Upload the file to SFTP
         return { 
             fileName: excelResult.updatedFileName,
@@ -195,7 +197,7 @@ const flatingBOM = async (req) => {
     }
 };
 
-const convertJsonToExcel = async (jsonData) => {
+const convertJsonToExcel = async (jsonData,ca_name,plm_env) => {
     const templateFilePath = path.join(__dirname, 'template.xlsx');
     const workbook = XLSX.readFile(templateFilePath);
     const BOMSheet = workbook.Sheets['BOM'];
@@ -207,15 +209,37 @@ const convertJsonToExcel = async (jsonData) => {
     const startingRow = 5;
     jsonData.forEach((item, index) => {
         const rowIndex = startingRow + index;
-        BOMSheet[`A${rowIndex}`] = { v: item.Level };
+        BOMSheet[`A${rowIndex}`] = { v: item['Level'] };
         BOMSheet[`B${rowIndex}`] = { v: item['Item Reference'] };
         BOMSheet[`C${rowIndex}`] = { v: item['Item Description'] };
-        BOMSheet[`D${rowIndex}`] = { v: item['Item Revision'] };
+        // BOMSheet[`D${rowIndex}`] = { v: item['Item Revision'] };
         BOMSheet[`E${rowIndex}`] = { v: item['Item Owner'] };
         BOMSheet[`F${rowIndex}`] = { v: item['Quantity'] };
+        BOMSheet[`G${rowIndex}`] = { v: item['Part Reference'] };
+        BOMSheet[`H${rowIndex}`] = { v: item['Supplier Reference'] };
+        BOMSheet[`J${rowIndex}`] = { v: 'Active' };
     });
 
-    const updatedFileName = `updated_list_${Date.now()}.xlsx`;
+    //filling Parts Sheet
+    const PartSheet = workbook.Sheets['Parts'];
+    if (!PartSheet) {
+        throw new Error("'Parts' sheet not found in the template.");
+    }
+    const startingRow2 = 5;
+    jsonData.forEach((item, index) => {
+        const rowIndex = startingRow2 + index;
+        PartSheet[`A${rowIndex}`] = { v: item['Part Reference'] };
+        PartSheet[`B${rowIndex}`] = { v: item['Part Description'] };
+        PartSheet[`C${rowIndex}`] = { v: item['Supplier Reference'] };
+    });
+
+    var envName = 'File' //Default name
+    if(plm_env == 'https://3dxs12.emerson.com/3dspace'){
+        envName = 'Enovia';
+    }
+    
+
+    const updatedFileName = `${envName}_${ca_name}_${Date.now()}.xlsx`;
     const updatedFilePath = path.join(__dirname, updatedFileName);
     XLSX.writeFile(workbook, updatedFilePath);
     return { updatedFileName, updatedFilePath };
@@ -234,7 +258,7 @@ const sendDataToSFTP = async (excelResult) => {
         const remoteFilePath = excelResult.updatedFileName;
         await client.uploadFrom(excelResult.updatedFilePath, excelResult.updatedFileName);
         await client.close();
-        fs.unlinkSync(excelResult.updatedFilePath);
+        // fs.unlinkSync(excelResult.updatedFilePath);
 
         return `sftp://46.202.161.151/${remoteFilePath}`;
     } catch (ftpError) {
